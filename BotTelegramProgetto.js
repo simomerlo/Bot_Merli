@@ -28,7 +28,7 @@ bot.onText(/\/giocatori/, (msg, team) => {
     bot.sendMessage(msg.chat.id, "Elenco giocatori:");
     axios.get(uri + '?action=' + 'get_teams&league_id=148&APIkey=' + api)
         .then(function (response) {
-            bot.sendMessage(msg.chat.id, "Elenco giocatori:");
+            
             if (response.length != 0) {
                 for (var i = 0; i < response.data.length; i++) {
                     if (response.data[i].team_name == squadra) {
