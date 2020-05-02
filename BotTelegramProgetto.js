@@ -62,3 +62,5 @@ bot.onText(/\/player/, (msg, match) => {
 bot.on("polling_error", function (err) {
     console.log(err);
 });
+
+//test
