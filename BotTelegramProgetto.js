@@ -23,7 +23,7 @@ bot.onText(/\/start/, (msg) => {
 bot.onText(/\/giocatori/, (msg, team) => {
     var giocatori = [];
     var squadra = team.input;
-    squadra = squadra.substr(12);
+    squadra = squadra.substr(11);
     console.log(squadra);
     bot.sendMessage(msg.chat.id, "Elenco giocatori:");
     axios.get(uri + '?action=' + 'get_teams&league_id=148&APIkey=' + api)
@@ -38,9 +38,9 @@ bot.onText(/\/giocatori/, (msg, team) => {
                         }
                     }
 
-                    bot.sendMessage(msg.chat.id, giocatori.join("\n"));
+                    
                 }
-
+                bot.sendMessage(msg.chat.id, giocatori.join("\n"));
             }
 
         })
@@ -72,21 +72,34 @@ bot.onText(/\/allenatori/, (msg, team) => {
 
 
 
-bot.onText(/\/probabilita/, (msg, probabilita) => {
+bot.onText(/\/statistiche/, (msg, statistiche) => {
 
-
-    // var eventodiinizio= event.input.split()[];
-    // var eventodifine = event.input.split()[];
-    axios.get(uri + '?action=' + 'get_odds&from=2019-04-02&to=2019-04-03' + '&APIkey=' + api)
+    var stat = [];
+    var squadra = statistiche.input;
+    squadra = squadra.substr(13);
+    console.log(squadra);
+    bot.sendMessage(msg.chat.id, "Statistiche Squadra: ");
+    axios.get(uri + '?action=' + 'get_standings&league_id=148&APIkey=' + api)
         .then(function (response) {
-            // handle success
+
             if (response.length != 0) {
-                console.log(response);
-                // bot.sendMessage(msg.chat.id, response.data);
+                for (var i = 0; i < response.data.length; i++) {
+                    if (response.data[i].team_name == squadra) {
+                        var dat = "Posizione: " + response.data[i].overall_league_position + "\nPartite Giocate: " + response.data[i].overall_league_payed + "\nPartite Vinte: " + response.data[i].overall_league_W + "\nPartite Pareggiate: " + response.data[i].overall_league_D + "\nPartite Perse: " + response.data[i].overall_league_L + "\nGoal Fatti: " + response.data[i].overall_league_GF + "\nGoal Subiti: " + response.data[i].overall_league_GA + "\nPunti: " + response.data[i].overall_league_PTS + "\n\n";
+                        console.log(dat);
+                        stat.push(dat);
+                        console.log(response.data[i].overall_league_GA);
+                    }
+
+                }
+                bot.sendMessage(msg.chat.id, stat.join("\n"));
             }
 
         })
 });
+
+
+
 
 
 
@@ -125,7 +138,7 @@ bot.onText(/\/player/, (msg, match) => {
             if (response.length != 0) {
                 console.log(response.data);
                 for (var i = 0; i < response.data.length; i++) {
-                    bot.sendMessage(msg.chat.id, "nome: " + response.data[i].player_name + "\n" + response.data[i].player_number);
+                    bot.sendMessage(msg.chat.id, "nome: " + response.data[i].player_name + "\nNumero Maglia: " + response.data[i].player_number + "\nNazionale: "+ response.data[i].player_country + "\nRuolo: " + response.data[i].player_type + "\nEtà: " + response.data[i].player_age + "\nSquadra: " + response.data[i].team_name + "\n\n");
                 }
 
             }
