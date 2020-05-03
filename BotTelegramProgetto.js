@@ -16,7 +16,7 @@ const bot = new TelegramBot(Token,
 
 
 bot.onText(/\/start/, (msg) => {
-    bot.sendMessage(msg.chat.id, "Welcome to FootballBot");
+    bot.sendMessage(msg.chat.id, "Welcome to FootballBot\nComandi Disponibili:\n- /statistiche NOMESQUADRA\n- /giocatori NOMESQUADRA\n- /allenatori NOMESQUADRA\n- /country NOMENAZIONE\n- /player COGNOME NOME");
 });
 
 
