@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "http": "0.0.1-security",
     "jquery": "^3.5.0",
     "node-telegram-bot-api": "^0.40.0"
